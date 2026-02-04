@@ -32,11 +32,14 @@ const App: React.FC = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const navigate = useCallback((view: View) => {
-    if (view === currentView) return;
+    if (view === currentView) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     setIsTransitioning(true);
     const timer = setTimeout(() => {
       setCurrentView(view);
-      window.scrollTo({ top: 0, behavior: 'auto' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       setIsTransitioning(false);
     }, 250);
     return () => clearTimeout(timer);
