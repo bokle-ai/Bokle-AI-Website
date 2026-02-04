@@ -18,7 +18,7 @@ const ServiceOther: React.FC<ServiceOtherProps> = ({ onNavigate }) => {
               CUSTOM <br />
               <span className="text-[#00FF41]">AUTOMATIONS.</span>
             </h1>
-            <img src="/icon-sliders.png" alt="" className="absolute -right-20 -top-10 w-32 h-32 object-contain animate-float opacity-80 drop-shadow-[0_0_20px_rgba(0,255,65,0.4)]" />
+            <span className="absolute -right-20 -top-10 text-7xl animate-float opacity-80 drop-shadow-[0_0_20px_rgba(0,255,65,0.4)]">⚙️</span>
           </div>
           <p className="text-xl md:text-2xl text-white/40 font-light leading-relaxed max-w-xl">
             Beyond individual agents lies the ecosystem. We build deep neural integrations that connect your entire business stack into a single, autonomous engine.

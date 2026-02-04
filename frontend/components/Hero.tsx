@@ -22,12 +22,9 @@ const Hero: React.FC = () => {
         
         {/* Floating Mascot */}
         <img 
-          src="Full Mascot.png" 
+          src="/mascot-flying.png" 
           alt="Bokle AI Mascot" 
           className="w-64 md:w-96 h-auto object-contain float-animation drop-shadow-2xl relative z-10"
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = 'https://picsum.photos/400/400?grayscale';
-          }}
         />
       </div>
 

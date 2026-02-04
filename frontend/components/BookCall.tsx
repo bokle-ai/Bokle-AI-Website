@@ -48,14 +48,13 @@ const BookCall: React.FC = () => {
     return (
       <div className="pt-64 pb-32 px-6 max-w-3xl mx-auto animate-in text-center space-y-10">
         <div className="w-32 h-32 flex items-center justify-center mx-auto mb-10">
-          <img src="Full Mascot.png" className="w-full animate-float" alt="Thank You" />
+          <img src="/mascot-flying.png" className="w-full animate-float" alt="Thank You" />
         </div>
         <div className="space-y-4">
           <h1 className="text-6xl font-black italic text-[#00FF41]">THANK YOU.</h1>
           <p className="text-2xl text-white/50 font-light">Mission Received.</p>
           <p className="text-sm text-white/30">
-            A confirmation has been sent to: <br />
-            <span className="text-[#00FF41] font-bold">{import.meta.env.VITE_DESTINATION_EMAIL}</span>
+            We will get back to you shortly!
           </p>
         </div>
         <button
