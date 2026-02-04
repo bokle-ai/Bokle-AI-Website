@@ -50,20 +50,20 @@ const ServiceSupport: React.FC<ServiceSupportProps> = ({ onNavigate }) => {
         <h2 className="text-5xl font-bold text-center italic">Industry-Ready Logic</h2>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           {[
-            { 
-              title: 'Real Estate', 
-              li: ['Property search by budget', 'Virtual tour delivery', 'Agent routing'] 
+            {
+              title: 'Real Estate',
+              li: ['Property search by budget', 'Virtual tour delivery', 'Agent routing']
             },
-            { 
-              title: 'Healthcare', 
-              li: ['Doctor availability queries', 'Treatment FAQs', 'Insurance guidance'] 
+            {
+              title: 'Healthcare',
+              li: ['Doctor availability queries', 'Treatment FAQs', 'Insurance guidance']
             },
-            { 
-              title: 'Services', 
-              li: ['Admission information', 'Eligibility checks', 'Consultant handoff'] 
+            {
+              title: 'Services',
+              li: ['Admission information', 'Eligibility checks', 'Consultant handoff']
             }
           ].map((item, i) => (
-            <div key={i} className="bg-black/40 p-12 rounded-[50px] border border-white/5 space-y-6">
+            <div key={i} className="premium-glass p-12 rounded-[50px] space-y-6">
               <h3 className="text-2xl font-black text-[#00FF41]">{item.title}</h3>
               <ul className="space-y-4">
                 {item.li.map((text, j) => (

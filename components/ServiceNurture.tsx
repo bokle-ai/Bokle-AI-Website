@@ -38,7 +38,7 @@ const ServiceNurture: React.FC<ServiceNurtureProps> = ({ onNavigate }) => {
           <h2 className="text-4xl md:text-6xl font-bold">This is not a template.</h2>
           <p className="text-white/40 text-xl italic">It is a business workflow built on WhatsApp.</p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
             { t: 'Instant Response', d: 'Respond to new enquiries in sub-2 seconds, 24/7.' },
@@ -62,52 +62,52 @@ const ServiceNurture: React.FC<ServiceNurtureProps> = ({ onNavigate }) => {
       {/* Industry Verticals */}
       <section className="space-y-24 py-20">
         <h2 className="text-5xl md:text-7xl font-black text-center tracking-tighter">DOMAIN <span className="text-[#00FF41]">SPECIFIC.</span></h2>
-        
+
         <div className="space-y-12">
           {/* Real Estate */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center premium-glass p-12 md:p-20 rounded-[60px]">
-             <div className="space-y-8">
-                <div className="flex items-center gap-4">
-                  <div className="p-4 bg-[#00FF41]/10 rounded-2xl"><ServiceVisual type="real-estate" size="sm" /></div>
-                  <h3 className="text-4xl font-bold">Real Estate</h3>
-                </div>
-                <p className="text-xl text-white/50 leading-relaxed">Strike while the lead is hot. Sub-30s automated responses for property enquiries.</p>
-                <ul className="space-y-4">
-                  {['Instant brochure & walkthrough sharing', 'Budget & location qualification', 'Site visit scheduling & reminders'].map((li, i) => (
-                    <li key={i} className="flex items-center gap-3 text-white/80">
-                      <svg className="w-5 h-5 text-[#00FF41]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" /></svg>
-                      {li}
-                    </li>
-                  ))}
-                </ul>
-             </div>
-             <div className="bg-black/40 rounded-3xl p-10 border border-white/5 text-center">
-                <div className="text-[#00FF41] text-6xl font-black mb-2">98%</div>
-                <p className="text-white/30 uppercase tracking-widest text-xs font-bold">Lead Engagement Rate</p>
-             </div>
+            <div className="space-y-8">
+              <div className="flex items-center gap-4">
+                <div className="p-4 bg-[#00FF41]/10 rounded-2xl"><ServiceVisual type="real-estate" size="sm" /></div>
+                <h3 className="text-4xl font-bold">Real Estate</h3>
+              </div>
+              <p className="text-xl text-white/50 leading-relaxed">Strike while the lead is hot. Sub-30s automated responses for property enquiries.</p>
+              <ul className="space-y-4">
+                {['Instant brochure & walkthrough sharing', 'Budget & location qualification', 'Site visit scheduling & reminders'].map((li, i) => (
+                  <li key={i} className="flex items-center gap-3 text-white/80">
+                    <svg className="w-5 h-5 text-[#00FF41]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" /></svg>
+                    {li}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="premium-glass rounded-3xl p-10 text-center">
+              <div className="text-[#00FF41] text-6xl font-black mb-2">98%</div>
+              <p className="text-white/30 uppercase tracking-widest text-xs font-bold">Lead Engagement Rate</p>
+            </div>
           </div>
 
           {/* Healthcare */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center premium-glass p-12 md:p-20 rounded-[60px]">
-             <div className="lg:order-2 space-y-8">
-                <div className="flex items-center gap-4">
-                  <div className="p-4 bg-[#00FF41]/10 rounded-2xl"><ServiceVisual type="healthcare" size="sm" /></div>
-                  <h3 className="text-4xl font-bold">Healthcare</h3>
-                </div>
-                <p className="text-xl text-white/50 leading-relaxed">Reduced receptionist workload and a smoother patient experience.</p>
-                <ul className="space-y-4">
-                  {['24/7 Appointment booking', 'No-show reduction reminders', 'Doctor availability & FAQs'].map((li, i) => (
-                    <li key={i} className="flex items-center gap-3 text-white/80">
-                      <svg className="w-5 h-5 text-[#00FF41]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" /></svg>
-                      {li}
-                    </li>
-                  ))}
-                </ul>
-             </div>
-             <div className="lg:order-1 bg-black/40 rounded-3xl p-10 border border-white/5 text-center">
-                <div className="text-[#00FF41] text-6xl font-black mb-2">0</div>
-                <p className="text-white/30 uppercase tracking-widest text-xs font-bold">Missed Appointments</p>
-             </div>
+            <div className="lg:order-2 space-y-8">
+              <div className="flex items-center gap-4">
+                <div className="p-4 bg-[#00FF41]/10 rounded-2xl"><ServiceVisual type="healthcare" size="sm" /></div>
+                <h3 className="text-4xl font-bold">Healthcare</h3>
+              </div>
+              <p className="text-xl text-white/50 leading-relaxed">Reduced receptionist workload and a smoother patient experience.</p>
+              <ul className="space-y-4">
+                {['24/7 Appointment booking', 'No-show reduction reminders', 'Doctor availability & FAQs'].map((li, i) => (
+                  <li key={i} className="flex items-center gap-3 text-white/80">
+                    <svg className="w-5 h-5 text-[#00FF41]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" /></svg>
+                    {li}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="lg:order-1 premium-glass rounded-3xl p-10 text-center">
+              <div className="text-[#00FF41] text-6xl font-black mb-2">0</div>
+              <p className="text-white/30 uppercase tracking-widest text-xs font-bold">Missed Appointments</p>
+            </div>
           </div>
         </div>
       </section>

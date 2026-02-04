@@ -82,7 +82,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ title, type, description, lat
           {type && <ServiceVisual type={type} />}
         </div>
 
-        <h3 className="text-4xl font-black mb-6 tracking-tight group-hover:text-[#00FF41] transition-colors leading-none font-space uppercase">
+        <h3 className="text-4xl font-black mb-6 tracking-tight group-hover:text-[#00FF41] transition-colors leading-none uppercase">
           {title}
         </h3>
 

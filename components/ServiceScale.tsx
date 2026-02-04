@@ -33,30 +33,35 @@ const ServiceScale: React.FC<ServiceScaleProps> = ({ onNavigate }) => {
       {/* Features Grid */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-10">
         <div className="premium-glass p-16 rounded-[60px] space-y-8 border-[#00FF41]/10">
-           <h3 className="text-3xl font-bold text-[#00FF41]">Controlled Automation</h3>
-           <p className="text-white/50 text-xl font-light">We map call flows before deployment. No scripts. No robotic delays. Just business logic that sounds human.</p>
-           <ul className="space-y-4 font-bold text-white/80">
-             <li className="flex gap-4 items-center"><div className="w-1.5 h-1.5 bg-[#00FF41] rounded-full"></div> Defined Handoff Logic</li>
-             <li className="flex gap-4 items-center"><div className="w-1.5 h-1.5 bg-[#00FF41] rounded-full"></div> Compliance-First Approach</li>
-             <li className="flex gap-4 items-center"><div className="w-1.5 h-1.5 bg-[#00FF41] rounded-full"></div> Zero Spam Integrity</li>
-           </ul>
+          <h3 className="text-3xl font-bold text-[#00FF41]">Controlled Automation</h3>
+          <p className="text-white/50 text-xl font-light">We map call flows before deployment. No scripts. No robotic delays. Just business logic that sounds human.</p>
+          <ul className="space-y-4 font-bold text-white/80">
+            <li className="flex gap-4 items-center"><div className="w-1.5 h-1.5 bg-[#00FF41] rounded-full"></div> Defined Handoff Logic</li>
+            <li className="flex gap-4 items-center"><div className="w-1.5 h-1.5 bg-[#00FF41] rounded-full"></div> Compliance-First Approach</li>
+            <li className="flex gap-4 items-center"><div className="w-1.5 h-1.5 bg-[#00FF41] rounded-full"></div> Zero Spam Integrity</li>
+          </ul>
         </div>
-        <div className="bg-black/40 p-16 rounded-[60px] border border-white/5 space-y-12">
-           <div className="space-y-6">
-              <h3 className="text-3xl font-bold">Capabilities</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {[
-                  '24/7 Inbound Answering',
-                  'In-Call Booking',
-                  'Caller Qualification',
-                  'Smart After-Hours Routing'
-                ].map((item, i) => (
-                  <div key={i} className="text-xs font-black uppercase tracking-widest text-white/30 border border-white/5 p-6 rounded-2xl">
+        <div className="premium-glass p-16 rounded-[60px] space-y-12">
+          <div className="space-y-6">
+            <h3 className="text-3xl font-black text-[#00FF41] uppercase tracking-wide mb-8">Capabilities</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                '24/7 Inbound Answering',
+                'In-Call Booking',
+                'Caller Qualification',
+                'Smart After-Hours Routing'
+              ].map((item, i) => (
+                <div key={i} className="group flex items-center gap-4 p-5 rounded-xl border border-white/10 bg-black/20 hover:border-[#00FF41] hover:bg-[#00FF41]/5 transition-all duration-300 shadow-lg hover:shadow-[#00FF41]/10">
+                  <div className="w-8 h-8 rounded-full bg-[#00FF41]/10 flex items-center justify-center shrink-0 group-hover:bg-[#00FF41] transition-colors">
+                    <div className="w-2 h-2 bg-[#00FF41] rounded-full group-hover:bg-black transition-colors animate-pulse"></div>
+                  </div>
+                  <div className="text-base font-bold text-white group-hover:translate-x-1 transition-transform">
                     {item}
                   </div>
-                ))}
-              </div>
-           </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -64,40 +69,40 @@ const ServiceScale: React.FC<ServiceScaleProps> = ({ onNavigate }) => {
       <section className="space-y-20">
         <h2 className="text-5xl font-black text-center">VOICE FOR <span className="text-[#00FF41]">OPERATIONS.</span></h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-           {[
-             { 
-               h: 'Healthcare', 
-               d: 'Zero missed clinical booking calls and automated recall systems.',
-               stat: '80% Admin Relief'
-             },
-             { 
-               h: 'Real Estate', 
-               d: 'Instant callbacks after enquiries and high-intent buyer transfers.',
-               stat: '4X Higher Qual'
-             },
-             { 
-               h: 'Service SMEs', 
-               d: 'Overflow call management so you never lose a hot lead to a competitor.',
-               stat: '24/7 Availability'
-             }
-           ].map((card, i) => (
-             <div key={i} className="premium-glass p-12 rounded-[50px] space-y-6 flex flex-col justify-between">
-                <div className="space-y-4">
-                  <h4 className="text-2xl font-bold text-[#00FF41]">{card.h}</h4>
-                  <p className="text-white/40 leading-relaxed">{card.d}</p>
-                </div>
-                <div className="pt-6 border-t border-white/5 text-[#00FF41] font-black uppercase text-xs tracking-widest">
-                  {card.stat}
-                </div>
-             </div>
-           ))}
+          {[
+            {
+              h: 'Healthcare',
+              d: 'Zero missed clinical booking calls and automated recall systems.',
+              stat: '80% Admin Relief'
+            },
+            {
+              h: 'Real Estate',
+              d: 'Instant callbacks after enquiries and high-intent buyer transfers.',
+              stat: '4X Higher Qual'
+            },
+            {
+              h: 'Service SMEs',
+              d: 'Overflow call management so you never lose a hot lead to a competitor.',
+              stat: '24/7 Availability'
+            }
+          ].map((card, i) => (
+            <div key={i} className="premium-glass p-12 rounded-[50px] space-y-6 flex flex-col justify-between">
+              <div className="space-y-4">
+                <h4 className="text-2xl font-bold text-[#00FF41]">{card.h}</h4>
+                <p className="text-white/40 leading-relaxed">{card.d}</p>
+              </div>
+              <div className="pt-6 border-t border-white/5 text-[#00FF41] font-black uppercase text-xs tracking-widest">
+                {card.stat}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* Final CTA */}
       <section className="text-center py-20">
-         <h2 className="text-4xl md:text-6xl font-bold mb-10 italic">Stop Losing Revenue to Silence.</h2>
-         <button onClick={() => onNavigate('book-call')} className="bg-[#00FF41] text-black font-bold px-16 py-8 rounded-full text-xl btn-glide shadow-xl hover:shadow-[#00FF41]/20">Deploy Voice Automation</button>
+        <h2 className="text-4xl md:text-6xl font-bold mb-10 italic">Stop Losing Revenue to Silence.</h2>
+        <button onClick={() => onNavigate('book-call')} className="bg-[#00FF41] text-black font-bold px-16 py-8 rounded-full text-xl btn-glide shadow-xl hover:shadow-[#00FF41]/20">Deploy Voice Automation</button>
       </section>
     </div>
   );

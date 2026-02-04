@@ -15,7 +15,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
     { label: 'Home', view: 'home' as View },
     { label: 'Services', view: 'services' as View },
     { label: 'About', view: 'about' as View },
-    { label: 'Deploy AI', view: 'book-call' as View },
+    { label: 'Contact Us', view: 'book-call' as View },
   ];
 
   return (
@@ -26,7 +26,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
         {/* Left Spacing for Balance */}
         <div className="flex-1"></div>
 
-        {/* Centered Logo Section (Ref: PNG Branding) */}
+        {/* Centered Logo Section (Coded to match PNG) */}
         <div
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer group flex items-center justify-center gap-3"
           onClick={() => {
@@ -34,15 +34,12 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
             setIsMenuOpen(false);
           }}
         >
-          {/* Main Logo Image Restored from Left */}
           <img
-            src={mascotUrl}
+            src="/logo-sugar-glider.png"
             alt="Bokle AI"
             className="h-10 md:h-12 w-auto transition-transform group-hover:scale-110 drop-shadow-[0_0_8px_rgba(0,255,65,0.5)]"
           />
-
-          {/* Simple Text Logo */}
-          <span className="font-black tracking-tight text-white text-2xl md:text-3xl select-none drop-shadow-md">
+          <span className="font-black tracking-tight text-white text-3xl md:text-3xl select-none drop-shadow-md pb-1">
             Bokle AI
           </span>
         </div>
@@ -82,10 +79,6 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
                   {link.label}
                 </button>
               ))}
-            </div>
-
-            <div className="mt-8 pt-8 border-t border-white/5 text-center">
-              <p className="text-[10px] text-white/20 font-bold tracking-[0.5em] uppercase">Neural Infrastructure V4.2</p>
             </div>
           </div>
         </div>

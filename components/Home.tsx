@@ -79,26 +79,26 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         <div className="max-w-7xl mx-auto space-y-24 relative z-10">
           <div className="text-center space-y-4">
             <h2 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic">The Ecosystem.</h2>
-            <p className="text-white/40 max-w-xl mx-auto">Neural workflows that live where your customers do.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { view: 'nurture', title: 'WhatsApp AI', desc: 'Turn WhatsApp into a 24/7 revenue engine.', label: 'Active Sync' },
-              { view: 'scale', title: 'Voice Agents', desc: 'Answer every call, qualify every lead.', label: 'Neural Audio' },
-              { view: 'support', title: 'Web Assistants', desc: 'Convert traffic into enquiries instantly.', label: 'Context Aware' }
+              { view: 'nurture', title: 'WhatsApp AI', desc: 'Turn WhatsApp into a 24/7 revenue engine.', label: 'Active Sync', icon: '/icon-chat.png' },
+              { view: 'scale', title: 'Voice Agents', desc: 'Answer every call, qualify every lead.', label: 'Neural Audio', icon: '/icon-lightning.png' },
+              { view: 'support', title: 'Web Assistants', desc: 'Convert traffic into enquiries instantly.', label: 'Context Aware', icon: '/icon-chart.png' }
             ].map((s, i) => (
               <MagneticCard
                 key={i}
                 onClick={() => onNavigate(s.view as View)}
-                className="premium-glass p-12 rounded-[50px] space-y-8 cursor-pointer group"
+                className="premium-glass p-12 rounded-[50px] space-y-8 cursor-pointer group overflow-hidden relative"
               >
+                <div className="absolute top-0 right-0 p-8 opacity-20 group-hover:opacity-100 transition-opacity duration-500">
+                  <img src={s.icon} alt="" className="w-24 h-24 object-contain animate-float drop-shadow-[0_0_15px_rgba(0,255,65,0.5)]" />
+                </div>
                 <div className="text-[10px] font-bold tracking-[0.3em] text-[#00FF41] uppercase">{s.label}</div>
                 <h3 className="text-3xl font-black">{s.title}</h3>
                 <p className="text-white/40 leading-relaxed">{s.desc}</p>
-                <div className="pt-4 flex items-center gap-2 text-[#00FF41] font-bold text-xs uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
-                  Explore Protocol →
-                </div>
+
               </MagneticCard>
             ))}
           </div>
@@ -112,7 +112,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             <div className="premium-glass p-16 rounded-[58px] border-none">
               <h3 className="text-4xl font-black mb-8 italic">Focus Domains.</h3>
               <div className="space-y-10">
-                <div className="p-8 bg-black/20 rounded-3xl border border-white/5 hover:border-[#00FF41]/30 transition-colors">
+                <div className="p-8 bg-black/20 rounded-3xl border border-white/5 hover:border-[#00FF41]/30 transition-colors relative overflow-hidden group">
+                  <div className="absolute top-4 right-4 opacity-50 group-hover:opacity-100 transition-opacity">
+                    <img src="/icon-search.png" alt="" className="w-16 h-16 object-contain drop-shadow-[0_0_10px_rgba(0,255,65,0.3)]" />
+                  </div>
                   <h4 className="text-[#00FF41] font-bold text-xl mb-2">Real Estate</h4>
                   <p className="text-white/40 leading-relaxed">Instant lead qualification, automated walkthrough sharing, and site visit scheduling.</p>
                 </div>

@@ -81,18 +81,18 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ title, icon, description, lat
   }, []);
 
   return (
-    <div 
+    <div
       ref={cardRef}
       className="premium-glass p-12 group relative overflow-hidden transition-transform duration-500 ease-out cursor-default"
       style={{ transformStyle: 'preserve-3d' }}
     >
       <div className="hud-scanner"></div>
-      <div 
-        ref={glareRef} 
+      <div
+        ref={glareRef}
         className="absolute inset-0 pointer-events-none z-0 transition-opacity duration-300"
       ></div>
-      
-      <div 
+
+      <div
         ref={contentRef}
         className="relative z-10 transition-transform duration-500 ease-out"
         style={{ transformStyle: 'preserve-3d' }}
@@ -157,7 +157,7 @@ const Features: React.FC = () => {
     <section id="services" className="py-32 px-6 max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-20">
         <div className="space-y-4">
-          <h2 className="text-5xl font-black font-space">Neural Engines</h2>
+          <h2 className="text-5xl font-black">Neural Engines</h2>
           <p className="text-white/40 max-w-md">Our three core processing units designed for high-throughput business logic.</p>
         </div>
         <div className="hidden md:block h-[1px] flex-1 bg-gradient-to-r from-transparent via-[#00FF41]/20 to-transparent mx-12 mb-4"></div>

@@ -12,7 +12,7 @@ const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
     <div className="pt-48 pb-32 px-6 max-w-7xl mx-auto space-y-40 animate-in">
       <header className="max-w-4xl space-y-8">
         <div className="text-[#00FF41] font-mono text-[10px] font-bold tracking-[0.4em] uppercase">Solution Suite</div>
-        <h2 className="text-6xl md:text-8xl font-black font-space tracking-tighter leading-none">
+        <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none">
           OUR AI <br />
           <span className="text-[#00FF41]">SOLUTIONS.</span>
         </h2>
@@ -55,7 +55,7 @@ const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
       </div>
 
       <div className="text-center py-20 neumorph-card p-12 space-y-8 rounded-[40px] border border-white/10 hover:border-[#00FF41]/50 transition-all duration-500 shadow-[0_0_20px_rgba(0,0,0,0.3)] hover:shadow-[0_0_40px_rgba(0,255,65,0.15)]">
-        <h3 className="text-3xl md:text-5xl font-bold font-space">Custom Requirements?</h3>
+        <h3 className="text-3xl md:text-5xl font-bold">Custom Requirements?</h3>
         <p className="text-white/50 max-w-2xl mx-auto text-lg">Contact our solutions architects to design a bespoke AI implementation for your organization.</p>
         <button
           onClick={() => onNavigate('book-call')}
