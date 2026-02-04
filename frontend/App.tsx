@@ -74,6 +74,7 @@ const App: React.FC = () => {
           {currentView === 'use-case-hc' && <UseCaseHealthcare onNavigate={navigate} />}
           {currentView === 'about' && <About onNavigate={navigate} />}
           {currentView === 'book-call' && <BookCall />}
+          {currentView === 'admin' && <Admin onNavigate={navigate} />}
         </Suspense>
       </main>
 
