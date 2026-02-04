@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bokle AI | Make Your Business Glide</title>
+    <meta name="description"
+        content="AI Automation for Real Estate, Healthcare, and Service-Driven Businesses. WhatsApp, Voice, and Chatbots that actually work.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+        :root {
+            --bg-deep: #020603;
+            --nebula-green: #00FF41;
+            --nebula-dark: #031809;
+            --nebula-soft: rgba(0, 255, 65, 0.15);
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-deep);
+            background-image:
+                radial-gradient(circle at 80% 20%, rgba(0, 255, 65, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 65, 0.05) 0%, transparent 40%),
+                linear-gradient(180deg, #020603 0%, #031809 50%, #020603 100%);
+            color: #fff;
+            overflow-x: hidden;
+            font-family: 'DM Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .comet-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .comet {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #fff, 0 0 20px var(--nebula-green);
+            opacity: 0;
+            animation: comet-trail 8s linear infinite;
+        }
+
+        @keyframes comet-trail {
+            0% {
+                transform: translate(110vw, -10vh) scale(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            30% {
+                transform: translate(-10vw, 40vh) scale(1.5);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translate(-10vw, 40vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .premium-glass {
+            background: rgba(3, 24, 9, 0.4);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(0, 255, 65, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8),
+                inset 0 0 20px rgba(0, 255, 65, 0.05);
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .neon-text-glow {
+            text-shadow: 0 0 30px rgba(0, 255, 65, 0.8), 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-glide {
+            background: linear-gradient(135deg, #00FF41 0%, #008021 100%);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+            border: none;
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-25px) rotate(1deg);
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: transparent;
+        }
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@^19.2.3",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+        "react/": "https://esm.sh/react@^19.2.3/",
+        "three": "https://esm.sh/three@^0.182.0"
+      }
+    }
+    </script>
+    <link rel="stylesheet" href="/index.css">
+</head>
+
+<body>
+    <div class="comet-container">
+        <div class="comet" style="top: 10%; left: 80%; animation-delay: 0s;"></div>
+        <div class="comet" style="top: 40%; left: 90%; animation-delay: 4s;"></div>
+        <div class="comet" style="top: 5%; left: 60%; animation-delay: 2s; animation-duration: 12s;"></div>
+    </div>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+
+</html>
