@@ -12,29 +12,26 @@ const BookCall: React.FC = () => {
     setError(null);
 
     const formData = new FormData(e.currentTarget);
-    const destinationEmail = import.meta.env.VITE_DESTINATION_EMAIL;
-
-    if (!destinationEmail) {
-      setError("System Error: Destination coordinates missing. Check configuration.");
-      setLoading(false);
-      return;
-    }
+    const data = {
+      name: formData.get('name') as string,
+      email: formData.get('email') as string,
+      domain: formData.get('domain') as string,
+      description: formData.get('description') as string,
+    };
 
     try {
-      // POST to FormSubmit
-      const response = await fetch(`https://formsubmit.co/ajax/${destinationEmail}`, {
+      const response = await fetch('/api/submit-inquiry', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
         },
-        body: JSON.stringify(Object.fromEntries(formData)),
+        body: JSON.stringify(data),
       });
 
       if (response.ok) {
         setSubmitted(true);
       } else {
-        throw new Error('Neural Link Transmission Failed');
+        throw new Error('Submission Failed');
       }
     } catch (err) {
       console.error(err);
