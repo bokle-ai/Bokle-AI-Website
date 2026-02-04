@@ -100,7 +100,6 @@ const App: React.FC = () => {
                 <button onClick={() => navigate('services')} className="text-white/50 hover:text-[#00FF41] transition-colors text-left">Services</button>
                 <button onClick={() => navigate('about')} className="text-white/50 hover:text-[#00FF41] transition-colors text-left">About</button>
                 <button onClick={() => navigate('book-call')} className="text-white/50 hover:text-[#00FF41] transition-colors text-left">Contact Us</button>
-                <button onClick={() => navigate('admin')} className="text-white/50 hover:text-[#00FF41] transition-colors text-left">Admin Dashboard</button>
               </div>
             </div>
             
