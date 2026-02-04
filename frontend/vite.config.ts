@@ -4,31 +4,37 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
+    const backendUrl = env.VITE_BACKEND_URL || 'http://localhost:8001';
+    
     return {
       server: {
-        port: 3000,
         host: '0.0.0.0',
-        allowedHosts: ['.emergentagent.com', 'localhost', '127.0.0.1'],
-        hmr: {
-          host: 'localhost',
-        },
+        port: parseInt(process.env.PORT || '3000'),
+        allowedHosts: 'all',
         proxy: {
           '/api': {
-            target: 'http://localhost:8001',
+            target: backendUrl,
             changeOrigin: true,
           },
         },
       },
+      preview: {
+        host: '0.0.0.0',
+        port: parseInt(process.env.PORT || '3000'),
+        allowedHosts: 'all',
+      },
       plugins: [react()],
       define: {
-        'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-        'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
+        'process.env.VITE_BACKEND_URL': JSON.stringify(env.VITE_BACKEND_URL),
       },
       resolve: {
         alias: {
           '@': path.resolve(__dirname, '.'),
         }
       },
-      appType: 'spa',
+      build: {
+        outDir: 'dist',
+        sourcemap: false,
+      },
     };
 });
