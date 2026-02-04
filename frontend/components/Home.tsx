@@ -109,9 +109,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               <h3 className="text-4xl font-black mb-8 italic">Focus Domains.</h3>
               <div className="space-y-10">
                 <div className="p-8 bg-black/20 rounded-3xl border border-white/5 hover:border-[#00FF41]/30 transition-colors relative overflow-hidden group">
-                  <div className="absolute top-4 right-4 opacity-70 group-hover:opacity-100 transition-opacity">
-                    <img src="/icon-search.png" alt="" className="w-20 h-20 object-contain" />
-                  </div>
                   <h4 className="text-[#00FF41] font-bold text-xl mb-2">Real Estate</h4>
                   <p className="text-white/40 leading-relaxed">Instant lead qualification, automated walkthrough sharing, and site visit scheduling.</p>
                 </div>
