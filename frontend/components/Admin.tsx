@@ -24,11 +24,16 @@ const Admin: React.FC<AdminProps> = ({ onNavigate }) => {
     try {
       setLoading(true);
       const response = await fetch('/api/enquiries');
-      if (!response.ok) throw new Error('Failed to fetch enquiries');
+      if (!response.ok) {
+        const text = await response.text();
+        console.error('Response:', text);
+        throw new Error('Failed to fetch enquiries');
+      }
       const data = await response.json();
       setEnquiries(data.enquiries);
+      setError(null);
     } catch (err) {
-      setError('Failed to load enquiries');
+      setError('Failed to load enquiries. Please try refreshing.');
       console.error(err);
     } finally {
       setLoading(false);
