@@ -34,6 +34,7 @@ const BookCall: React.FC = () => {
 
       if (response.ok) {
         setSubmitted(true);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         throw new Error('Submission Failed');
       }
