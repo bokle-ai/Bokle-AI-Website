@@ -148,7 +148,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               onClick={() => onNavigate('book-call')}
               className="bg-[#00FF41] text-black font-black px-20 py-8 rounded-full text-2xl btn-glide"
             >
-              Deploy AI Now
+              Book a Call
             </button>
           </div>
 
