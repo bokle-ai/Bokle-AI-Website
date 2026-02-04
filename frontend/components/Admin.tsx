@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { View } from '../App';
+import { API_ENDPOINTS } from '../lib/api';
 
 interface Enquiry {
   id: string;
@@ -23,18 +24,21 @@ const Admin: React.FC<AdminProps> = ({ onNavigate }) => {
   const fetchEnquiries = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/enquiries');
-      if (!response.ok) {
-        const text = await response.text();
-        console.error('Response:', text);
-        throw new Error('Failed to fetch enquiries');
-      }
-      const data = await response.json();
-      setEnquiries(data.enquiries);
       setError(null);
+      
+      const response = await fetch(API_ENDPOINTS.getEnquiries);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Fetch error:', response.status, errorText);
+        throw new Error(`Server error: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      setEnquiries(data.enquiries || []);
     } catch (err) {
-      setError('Failed to load enquiries. Please try refreshing.');
-      console.error(err);
+      console.error('Failed to fetch enquiries:', err);
+      setError(err instanceof Error ? err.message : 'Failed to load enquiries. Please try refreshing.');
     } finally {
       setLoading(false);
     }
@@ -48,12 +52,18 @@ const Admin: React.FC<AdminProps> = ({ onNavigate }) => {
     if (!confirm('Are you sure you want to delete this enquiry?')) return;
     
     try {
-      const response = await fetch(`/api/enquiries/${id}`, { method: 'DELETE' });
-      if (response.ok) {
-        setEnquiries(enquiries.filter(e => e.id !== id));
+      const response = await fetch(API_ENDPOINTS.deleteEnquiry(id), { 
+        method: 'DELETE' 
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Delete failed: ${response.status}`);
       }
+      
+      setEnquiries(enquiries.filter(e => e.id !== id));
     } catch (err) {
       console.error('Failed to delete:', err);
+      alert('Failed to delete enquiry. Please try again.');
     }
   };
 
