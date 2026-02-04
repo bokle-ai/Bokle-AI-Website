@@ -83,19 +83,18 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { view: 'nurture', title: 'WhatsApp AI', desc: 'Turn WhatsApp into a 24/7 revenue engine.', label: 'Active Sync', icon: '/icon-chat.png' },
-              { view: 'scale', title: 'Voice Agents', desc: 'Answer every call, qualify every lead.', label: 'Neural Audio', icon: '/icon-lightning.png' },
-              { view: 'support', title: 'Web Assistants', desc: 'Convert traffic into enquiries instantly.', label: 'Context Aware', icon: '/icon-chart.png' }
+              { view: 'nurture', title: 'WhatsApp AI', desc: 'Turn WhatsApp into a 24/7 revenue engine.', icon: '/icon-chat.png' },
+              { view: 'scale', title: 'Voice Agents', desc: 'Answer every call, qualify every lead.', icon: '/icon-lightning.png' },
+              { view: 'support', title: 'Web Assistants', desc: 'Convert traffic into enquiries instantly.', icon: '/icon-chart.png' }
             ].map((s, i) => (
               <MagneticCard
                 key={i}
                 onClick={() => onNavigate(s.view as View)}
-                className="premium-glass p-12 rounded-[50px] space-y-8 cursor-pointer group overflow-hidden relative"
+                className="premium-glass p-12 rounded-[50px] space-y-6 cursor-pointer group overflow-hidden relative"
               >
                 <div className="absolute top-0 right-0 p-6 opacity-60 group-hover:opacity-100 transition-opacity duration-500">
                   <img src={s.icon} alt="" className="w-28 h-28 object-contain animate-float" />
                 </div>
-                <div className="text-[10px] font-bold tracking-[0.3em] text-[#00FF41] uppercase">{s.label}</div>
                 <h3 className="text-3xl font-black">{s.title}</h3>
                 <p className="text-white/40 leading-relaxed">{s.desc}</p>
 
