@@ -12,40 +12,30 @@ try:
 except ImportError:
     pass
 
+# =============================================================================
+# FASTAPI APP INITIALIZATION
+# =============================================================================
 app = FastAPI(title="Bokle AI API")
 
-# CORS Configuration - Production-safe
-# Default allowed origins for production
-DEFAULT_ORIGINS = [
-    "https://bokle.in",
-    "https://www.bokle.in",
-]
-
-# Allow additional origins via environment variable (comma-separated)
-env_origins = os.environ.get("ALLOWED_ORIGINS", "")
-additional_origins = [o.strip() for o in env_origins.split(",") if o.strip()]
-
-# Combine default + additional origins
-allowed_origins = DEFAULT_ORIGINS + additional_origins
-
-# Add localhost for development if ENVIRONMENT is not production
-if os.environ.get("ENVIRONMENT", "development") != "production":
-    allowed_origins.extend([
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-    ])
-
+# =============================================================================
+# CORS MIDDLEWARE - MUST BE IMMEDIATELY AFTER app = FastAPI()
+# =============================================================================
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins,
+    allow_origins=[
+        "https://bokle.in",
+        "https://www.bokle.in",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allow_headers=["Content-Type", "Authorization", "Accept", "Origin", "X-Requested-With"],
-    expose_headers=["Content-Length"],
-    max_age=600,  # Cache preflight requests for 10 minutes
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"],
 )
 
-# MongoDB connection - Use environment variable (Railway provides MONGO_URL)
+# =============================================================================
+# DATABASE CONNECTION
+# =============================================================================
 MONGO_URL = os.environ.get("MONGO_URL") or os.environ.get("MONGODB_URL") or os.environ.get("DATABASE_URL")
 DB_NAME = os.environ.get("DB_NAME", "bokle_ai")
 
@@ -59,6 +49,9 @@ else:
     db = client[DB_NAME]
     enquiries_collection = db["enquiries"]
 
+# =============================================================================
+# MODELS
+# =============================================================================
 class InquiryRequest(BaseModel):
     name: str
     email: str
@@ -73,6 +66,9 @@ class InquiryResponse(BaseModel):
     description: str
     created_at: str
 
+# =============================================================================
+# API ROUTES
+# =============================================================================
 @app.get("/")
 def root():
     return {"status": "ok", "service": "Bokle AI API", "version": "1.0.0"}
