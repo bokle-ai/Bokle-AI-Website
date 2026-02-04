@@ -83,9 +83,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { view: 'nurture', title: 'WhatsApp AI', desc: 'Turn WhatsApp into a 24/7 revenue engine.', label: 'Active Sync', icon: '/icon-chat.png' },
-              { view: 'scale', title: 'Voice Agents', desc: 'Answer every call, qualify every lead.', label: 'Neural Audio', icon: '/icon-lightning.png' },
-              { view: 'support', title: 'Web Assistants', desc: 'Convert traffic into enquiries instantly.', label: 'Context Aware', icon: '/icon-chart.png' }
+              { view: 'nurture', title: 'WhatsApp AI', desc: 'Turn WhatsApp into a 24/7 revenue engine.', label: 'Active Sync', icon: '💬' },
+              { view: 'scale', title: 'Voice Agents', desc: 'Answer every call, qualify every lead.', label: 'Neural Audio', icon: '🎙️' },
+              { view: 'support', title: 'Web Assistants', desc: 'Convert traffic into enquiries instantly.', label: 'Context Aware', icon: '📊' }
             ].map((s, i) => (
               <MagneticCard
                 key={i}
@@ -93,7 +93,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 className="premium-glass p-12 rounded-[50px] space-y-8 cursor-pointer group overflow-hidden relative"
               >
                 <div className="absolute top-0 right-0 p-8 opacity-20 group-hover:opacity-100 transition-opacity duration-500">
-                  <img src={s.icon} alt="" className="w-24 h-24 object-contain animate-float drop-shadow-[0_0_15px_rgba(0,255,65,0.5)]" />
+                  <span className="text-6xl drop-shadow-[0_0_15px_rgba(0,255,65,0.5)]">{s.icon}</span>
                 </div>
                 <div className="text-[10px] font-bold tracking-[0.3em] text-[#00FF41] uppercase">{s.label}</div>
                 <h3 className="text-3xl font-black">{s.title}</h3>
@@ -114,7 +114,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               <div className="space-y-10">
                 <div className="p-8 bg-black/20 rounded-3xl border border-white/5 hover:border-[#00FF41]/30 transition-colors relative overflow-hidden group">
                   <div className="absolute top-4 right-4 opacity-50 group-hover:opacity-100 transition-opacity">
-                    <img src="/icon-search.png" alt="" className="w-16 h-16 object-contain drop-shadow-[0_0_10px_rgba(0,255,65,0.3)]" />
+                    <span className="text-4xl drop-shadow-[0_0_10px_rgba(0,255,65,0.3)]">🏠</span>
                   </div>
                   <h4 className="text-[#00FF41] font-bold text-xl mb-2">Real Estate</h4>
                   <p className="text-white/40 leading-relaxed">Instant lead qualification, automated walkthrough sharing, and site visit scheduling.</p>
