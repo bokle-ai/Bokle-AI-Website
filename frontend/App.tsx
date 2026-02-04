@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback, Suspense } from 'react';
+import React, { useState, useCallback, Suspense, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Services from './components/Services';
@@ -30,8 +30,23 @@ export type View =
   | 'admin';
 
 const App: React.FC = () => {
-  const [currentView, setCurrentView] = useState<View>('home');
+  // Check if URL path is /admin
+  const getInitialView = (): View => {
+    if (typeof window !== 'undefined' && window.location.pathname === '/admin') {
+      return 'admin';
+    }
+    return 'home';
+  };
+
+  const [currentView, setCurrentView] = useState<View>(getInitialView());
   const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Handle /admin URL path
+  useEffect(() => {
+    if (window.location.pathname === '/admin') {
+      setCurrentView('admin');
+    }
+  }, []);
 
   const navigate = useCallback((view: View) => {
     if (view === currentView) {
