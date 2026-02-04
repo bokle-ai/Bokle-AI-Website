@@ -1,9 +1,9 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import csv
+from pymongo import MongoClient
+from datetime import datetime, timezone
 import os
-from datetime import datetime
 
 app = FastAPI(title="Bokle AI API")
 
@@ -15,22 +15,27 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-CSV_FILE = os.path.join(os.path.dirname(__file__), "leads.csv")
+# MongoDB connection
+MONGO_URL = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
+DB_NAME = os.environ.get("DB_NAME", "bokle_ai")
 
-# Initialize CSV with headers if it doesn't exist
-def initialize_csv():
-    if not os.path.exists(CSV_FILE):
-        with open(CSV_FILE, 'w', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow(['Timestamp', 'Name', 'Email', 'Domain', 'Description'])
-
-initialize_csv()
+client = MongoClient(MONGO_URL)
+db = client[DB_NAME]
+enquiries_collection = db["enquiries"]
 
 class InquiryRequest(BaseModel):
     name: str
     email: str
     domain: str = ""
     description: str = ""
+
+class InquiryResponse(BaseModel):
+    id: str
+    name: str
+    email: str
+    domain: str
+    description: str
+    created_at: str
 
 @app.get("/api/health")
 def health_check():
@@ -41,12 +46,46 @@ def submit_inquiry(inquiry: InquiryRequest):
     if not inquiry.name or not inquiry.email:
         raise HTTPException(status_code=400, detail="Name and Email are required.")
     
-    timestamp = datetime.utcnow().isoformat()
+    # Create enquiry document
+    enquiry_doc = {
+        "name": inquiry.name,
+        "email": inquiry.email,
+        "domain": inquiry.domain,
+        "description": inquiry.description,
+        "created_at": datetime.now(timezone.utc)
+    }
     
     try:
-        with open(CSV_FILE, 'a', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow([timestamp, inquiry.name, inquiry.email, inquiry.domain, inquiry.description])
-        return {"success": True, "message": "Lead saved successfully."}
+        result = enquiries_collection.insert_one(enquiry_doc)
+        return {"success": True, "message": "Enquiry saved successfully.", "id": str(result.inserted_id)}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to save lead: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to save enquiry: {str(e)}")
+
+@app.get("/api/enquiries")
+def get_enquiries():
+    try:
+        enquiries = list(enquiries_collection.find().sort("created_at", -1))
+        result = []
+        for enq in enquiries:
+            result.append({
+                "id": str(enq["_id"]),
+                "name": enq.get("name", ""),
+                "email": enq.get("email", ""),
+                "domain": enq.get("domain", ""),
+                "description": enq.get("description", ""),
+                "created_at": enq.get("created_at", datetime.now(timezone.utc)).isoformat() if enq.get("created_at") else ""
+            })
+        return {"enquiries": result, "total": len(result)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to fetch enquiries: {str(e)}")
+
+@app.delete("/api/enquiries/{enquiry_id}")
+def delete_enquiry(enquiry_id: str):
+    from bson import ObjectId
+    try:
+        result = enquiries_collection.delete_one({"_id": ObjectId(enquiry_id)})
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Enquiry not found")
+        return {"success": True, "message": "Enquiry deleted successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to delete enquiry: {str(e)}")
