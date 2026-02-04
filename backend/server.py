@@ -5,6 +5,13 @@ from pymongo import MongoClient
 from datetime import datetime, timezone
 import os
 
+# Load .env file for local development
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 app = FastAPI(title="Bokle AI API")
 
 # CORS - Allow frontend origins
