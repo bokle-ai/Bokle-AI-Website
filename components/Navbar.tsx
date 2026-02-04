@@ -19,28 +19,31 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
   ];
 
   return (
-    <nav className="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[95%] z-[100]">
+    <nav className="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[90rem] z-[100]">
       {/* Obsidian Pill Container */}
-      <div className="relative h-16 md:h-20 bg-black/90 backdrop-blur-2xl rounded-full border border-white/10 shadow-2xl flex items-center px-6 md:px-10 overflow-hidden">
+      <div className="relative h-16 md:h-20 bg-[#031809]/40 backdrop-blur-xl rounded-full border border-[#00FF41]/10 shadow-[0_10px_40px_-5px_rgba(0,0,0,0.8),inset_0_0_20px_rgba(0,255,65,0.05)] flex items-center px-6 md:px-10 overflow-hidden transition-all duration-500 hover:bg-[#031809]/60 hover:border-[#00FF41]/30 hover:shadow-[0_20px_60px_-10px_rgba(0,255,65,0.1),inset_0_0_30px_rgba(0,255,65,0.1)]">
 
         {/* Left Spacing for Balance */}
         <div className="flex-1"></div>
 
         {/* Centered Logo Section (Ref: PNG Branding) */}
         <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer group flex items-center gap-3"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer group flex items-center justify-center gap-3"
           onClick={() => {
             onNavigate('home');
             setIsMenuOpen(false);
           }}
         >
+          {/* Main Logo Image Restored from Left */}
           <img
             src={mascotUrl}
             alt="Bokle AI"
-            className="h-8 md:h-10 w-auto transition-transform group-hover:scale-110"
+            className="h-10 md:h-12 w-auto transition-transform group-hover:scale-110 drop-shadow-[0_0_8px_rgba(0,255,65,0.5)]"
           />
-          <span className="text-xl md:text-2xl font-black tracking-tighter uppercase italic text-white">
-            BOKLE <span className="text-[#00FF41]">AI</span>
+
+          {/* Simple Text Logo */}
+          <span className="font-black tracking-tight text-white text-2xl md:text-3xl select-none drop-shadow-md">
+            Bokle AI
           </span>
         </div>
 
@@ -51,14 +54,14 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
             className="group flex flex-col gap-1.5 p-3 transition-transform hover:scale-110"
             aria-label="Toggle Menu"
           >
-            <div className={`w-6 h-[2.5px] bg-white rounded-full transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
-            <div className={`w-6 h-[2.5px] bg-white rounded-full transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></div>
-            <div className={`w-6 h-[2.5px] bg-white rounded-full transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
+            <div className={`w-6 h-[2.5px] bg-white rounded-full transition-all duration-300 shadow-[0_0_5px_rgba(255,255,255,0.5)] ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
+            <div className={`w-6 h-[2.5px] bg-white rounded-full transition-all duration-300 shadow-[0_0_5px_rgba(255,255,255,0.5)] ${isMenuOpen ? 'opacity-0' : ''}`}></div>
+            <div className={`w-6 h-[2.5px] bg-white rounded-full transition-all duration-300 shadow-[0_0_5px_rgba(255,255,255,0.5)] ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
           </button>
         </div>
 
         {/* Subtle Emerald Bottom Glow Line */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/4 h-[1px] bg-gradient-to-r from-transparent via-[#00FF41]/60 to-transparent"></div>
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/4 h-[1px] bg-gradient-to-r from-transparent via-[#00FF41]/80 to-transparent shadow-[0_0_10px_#00FF41]"></div>
       </div>
 
       {/* Mobile / Full Menu Overlay */}

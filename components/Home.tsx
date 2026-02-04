@@ -19,12 +19,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         <div className="absolute top-0 right-0 w-[800px] h-[1000px] bg-gradient-to-bl from-[#00FF41]/10 via-transparent to-transparent blur-[150px] -rotate-12 pointer-events-none"></div>
 
         <div className="relative z-10 space-y-8 max-w-6xl mx-auto">
-          <div className="inline-block px-4 py-1 mb-4 rounded-full border border-[#00FF41]/30 bg-[#00FF41]/5 text-[#00FF41] text-[10px] font-bold tracking-[0.4em] uppercase animate-pulse">
-            Neural Infrastructure Protocol
-          </div>
+
           <h1 className="text-5xl md:text-9xl font-black tracking-tighter leading-[0.85] uppercase">
             Make Your <br />
-            Business <span className="text-[#00FF41] italic neon-text-glow"><GlitchText text="Glide" /></span>
+            Business <span className="text-[#00FF41] italic neon-text-glow">Glide</span>
           </h1>
           <p className="text-xl md:text-2xl text-white/50 max-w-3xl mx-auto font-light leading-relaxed">
             WhatsApp Automation, AI Voice Agents, and Conversational Bots built for high-impact Real Estate and Healthcare operations.
