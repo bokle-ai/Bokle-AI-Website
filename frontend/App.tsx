@@ -12,6 +12,7 @@ import UseCaseRealEstate from './components/UseCaseRealEstate';
 import UseCaseHealthcare from './components/UseCaseHealthcare';
 import About from './components/About';
 import BookCall from './components/BookCall';
+import Admin from './components/Admin';
 import Starfield from './components/Starfield';
 
 export type View =
@@ -25,7 +26,8 @@ export type View =
   | 'use-case-re'
   | 'use-case-hc'
   | 'about'
-  | 'book-call';
+  | 'book-call'
+  | 'admin';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>('home');
