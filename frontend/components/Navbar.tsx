@@ -38,7 +38,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
           <img
             src="/logo-main.png"
             alt="Bokle AI"
-            className="h-10 md:h-12 w-auto transition-transform group-hover:scale-105"
+            className="h-8 md:h-10 w-auto transition-transform group-hover:scale-105"
           />
         </div>
 
