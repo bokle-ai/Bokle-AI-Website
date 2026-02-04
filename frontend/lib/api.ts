@@ -5,12 +5,16 @@ const getApiBaseUrl = (): string => {
   // In production, VITE_API_BASE_URL should point to the backend Railway service
   // e.g., https://bokle-backend.up.railway.app
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
-  
+
   if (baseUrl) {
     // Remove trailing slash if present
     return baseUrl.replace(/\/$/, '');
   }
-  
+
+  if (import.meta.env.PROD) {
+    console.warn('WARNING: VITE_API_BASE_URL is not defined! API requests will likely fail. Please set this environment variable in your deployment settings.');
+  }
+
   // Fallback for local development
   return '';
 };
