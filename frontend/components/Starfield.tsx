@@ -12,6 +12,7 @@ const Starfield: React.FC = () => {
 
     const initScene = () => {
       const scene = new THREE.Scene();
+      scene.background = null; // Ensure transparent background
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 5000);
       camera.position.z = 1000;
 
@@ -20,6 +21,7 @@ const Starfield: React.FC = () => {
         alpha: true, 
         powerPreference: 'high-performance' 
       });
+      renderer.setClearColor(0x000000, 0); // Fully transparent
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       mountRef.current?.appendChild(renderer.domElement);
