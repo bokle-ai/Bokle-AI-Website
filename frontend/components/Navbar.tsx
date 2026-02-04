@@ -73,8 +73,8 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
                     onNavigate(link.view);
                     setIsMenuOpen(false);
                   }}
-                  className={`w-full py-5 px-10 rounded-2xl text-left text-sm font-black uppercase tracking-[0.4em] transition-all
-                    ${currentView === link.view ? 'bg-[#00FF41]/10 text-[#00FF41] border border-[#00FF41]/20' : 'text-white/40 hover:bg-white/5 hover:text-white'}`}
+                  className={`w-full py-5 px-10 rounded-2xl text-left text-lg font-black uppercase tracking-[0.3em] transition-all
+                    ${currentView === link.view ? 'bg-[#00FF41]/10 text-[#00FF41] border border-[#00FF41]/20' : 'text-white/60 hover:bg-white/5 hover:text-white'}`}
                 >
                   {link.label}
                 </button>
