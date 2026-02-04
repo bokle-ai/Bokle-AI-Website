@@ -7,21 +7,30 @@ import os
 
 app = FastAPI(title="Bokle AI API")
 
+# CORS - Allow frontend origins
+allowed_origins = os.environ.get("ALLOWED_ORIGINS", "*").split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allowed_origins if allowed_origins != ["*"] else ["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# MongoDB connection
-MONGO_URL = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
+# MongoDB connection - Use environment variable (Railway provides MONGO_URL)
+MONGO_URL = os.environ.get("MONGO_URL") or os.environ.get("MONGODB_URL") or os.environ.get("DATABASE_URL")
 DB_NAME = os.environ.get("DB_NAME", "bokle_ai")
 
-client = MongoClient(MONGO_URL)
-db = client[DB_NAME]
-enquiries_collection = db["enquiries"]
+if not MONGO_URL:
+    print("WARNING: No MongoDB URL provided. Set MONGO_URL environment variable.")
+    client = None
+    db = None
+    enquiries_collection = None
+else:
+    client = MongoClient(MONGO_URL)
+    db = client[DB_NAME]
+    enquiries_collection = db["enquiries"]
 
 class InquiryRequest(BaseModel):
     name: str
@@ -37,16 +46,23 @@ class InquiryResponse(BaseModel):
     description: str
     created_at: str
 
+@app.get("/")
+def root():
+    return {"status": "ok", "service": "Bokle AI API", "version": "1.0.0"}
+
 @app.get("/api/health")
 def health_check():
-    return {"status": "healthy", "service": "Bokle AI API"}
+    db_status = "connected" if client else "not configured"
+    return {"status": "healthy", "service": "Bokle AI API", "database": db_status}
 
 @app.post("/api/submit-inquiry")
 def submit_inquiry(inquiry: InquiryRequest):
+    if not enquiries_collection:
+        raise HTTPException(status_code=503, detail="Database not configured")
+    
     if not inquiry.name or not inquiry.email:
         raise HTTPException(status_code=400, detail="Name and Email are required.")
     
-    # Create enquiry document
     enquiry_doc = {
         "name": inquiry.name,
         "email": inquiry.email,
@@ -63,6 +79,9 @@ def submit_inquiry(inquiry: InquiryRequest):
 
 @app.get("/api/enquiries")
 def get_enquiries():
+    if not enquiries_collection:
+        raise HTTPException(status_code=503, detail="Database not configured")
+    
     try:
         enquiries = list(enquiries_collection.find().sort("created_at", -1))
         result = []
@@ -81,6 +100,9 @@ def get_enquiries():
 
 @app.delete("/api/enquiries/{enquiry_id}")
 def delete_enquiry(enquiry_id: str):
+    if not enquiries_collection:
+        raise HTTPException(status_code=503, detail="Database not configured")
+    
     from bson import ObjectId
     try:
         result = enquiries_collection.delete_one({"_id": ObjectId(enquiry_id)})
