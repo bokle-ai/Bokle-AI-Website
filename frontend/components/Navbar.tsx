@@ -26,22 +26,20 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
         {/* Left Spacing for Balance */}
         <div className="flex-1"></div>
 
-        {/* Centered Logo Section (Coded to match PNG) */}
+        {/* Centered Logo Section */}
         <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer group flex items-center justify-center gap-3"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer group flex items-center justify-center"
           onClick={() => {
             onNavigate('home');
             setIsMenuOpen(false);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
         >
           <img
-            src="/logo-sugar-glider.png"
+            src="/logo-main.png"
             alt="Bokle AI"
-            className="h-10 md:h-12 w-auto transition-transform group-hover:scale-110 drop-shadow-[0_0_8px_rgba(0,255,65,0.5)]"
+            className="h-10 md:h-12 w-auto transition-transform group-hover:scale-105"
           />
-          <span className="font-black tracking-tight text-white text-3xl md:text-3xl select-none drop-shadow-md pb-1">
-            Bokle AI
-          </span>
         </div>
 
         {/* Right Section (White Hamburger Menu) */}
