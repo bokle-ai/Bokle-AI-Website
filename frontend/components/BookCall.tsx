@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { API_ENDPOINTS } from '../lib/api';
 
 const BookCall: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -24,7 +25,7 @@ const BookCall: React.FC = () => {
     };
 
     try {
-      const response = await fetch('/api/submit-inquiry', {
+      const response = await fetch(API_ENDPOINTS.submitInquiry, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,15 +33,23 @@ const BookCall: React.FC = () => {
         body: JSON.stringify(data),
       });
 
-      if (response.ok) {
+      if (!response.ok) {
+        const errorData = await response.text();
+        console.error('Submit error:', response.status, errorData);
+        throw new Error(`Server error: ${response.status}`);
+      }
+
+      const result = await response.json();
+      
+      if (result.success) {
         setSubmitted(true);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        throw new Error('Submission Failed');
+        throw new Error(result.message || 'Submission failed');
       }
     } catch (err) {
-      console.error(err);
-      setError('Connection failed. Please try again.');
+      console.error('Form submission error:', err);
+      setError(err instanceof Error ? err.message : 'Connection failed. Please try again.');
     } finally {
       setLoading(false);
     }
