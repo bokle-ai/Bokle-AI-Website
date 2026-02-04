@@ -12,6 +12,12 @@ export default defineConfig(({ mode }) => {
         hmr: {
           host: 'localhost',
         },
+        proxy: {
+          '/api': {
+            target: 'http://localhost:8001',
+            changeOrigin: true,
+          },
+        },
       },
       plugins: [react()],
       define: {
