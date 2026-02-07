@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
-import { View } from '../App';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { View, routeConfig } from '../App';
 
 interface NavbarProps {
   currentView: View;
@@ -9,14 +10,16 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const mascotUrl = "/logo-sugar-glider.png";
+  const location = useLocation();
 
-  const navLinks = [
-    { label: 'Home', view: 'home' as View },
-    { label: 'Services', view: 'services' as View },
-    { label: 'About', view: 'about' as View },
-    { label: 'Contact Us', view: 'book-call' as View },
+  const navLinks: { label: string; view: View; path: string }[] = [
+    { label: 'Home', view: 'home', path: '/' },
+    { label: 'Services', view: 'services', path: '/services' },
+    { label: 'About', view: 'about', path: '/about' },
+    { label: 'Contact Us', view: 'book-call', path: '/contact' },
   ];
+
+  const isActive = (path: string) => location.pathname === path;
 
   return (
     <nav className="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[90rem] z-[100]">
@@ -72,7 +75,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
                     setIsMenuOpen(false);
                   }}
                   className={`w-full py-5 px-10 rounded-2xl text-left text-lg font-black uppercase tracking-[0.3em] transition-all
-                    ${currentView === link.view ? 'bg-[#00FF41]/10 text-[#00FF41] border border-[#00FF41]/20' : 'text-white/60 hover:bg-white/5 hover:text-white'}`}
+                    ${isActive(link.path) ? 'bg-[#00FF41]/10 text-[#00FF41] border border-[#00FF41]/20' : 'text-white/60 hover:bg-white/5 hover:text-white'}`}
                 >
                   {link.label}
                 </button>

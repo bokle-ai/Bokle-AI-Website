@@ -1,5 +1,6 @@
 
-import React, { useState, useCallback, Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Services from './components/Services';
@@ -15,52 +16,52 @@ import BookCall from './components/BookCall';
 import Admin from './components/Admin';
 import Starfield from './components/Starfield';
 
-export type View =
-  | 'home'
-  | 'services'
-  | 'nurture'
-  | 'scale'
-  | 'support'
-  | 'other-services'
-  | 'use-cases'
-  | 'use-case-re'
-  | 'use-case-hc'
-  | 'about'
-  | 'book-call'
-  | 'admin';
+// Route configuration for easy mapping
+export const routeConfig = {
+  home: '/',
+  services: '/services',
+  nurture: '/services/nurture',
+  scale: '/services/scale',
+  support: '/services/support',
+  'other-services': '/services/other',
+  'use-cases': '/use-cases',
+  'use-case-re': '/use-cases/real-estate',
+  'use-case-hc': '/use-cases/healthcare',
+  about: '/about',
+  'book-call': '/contact',
+  admin: '/admin',
+} as const;
+
+export type View = keyof typeof routeConfig;
+
+// Helper to get view from path
+export const getViewFromPath = (pathname: string): View => {
+  for (const [view, path] of Object.entries(routeConfig)) {
+    if (path === pathname) return view as View;
+  }
+  return 'home';
+};
 
 const App: React.FC = () => {
-  // Check if URL path is /admin
-  const getInitialView = (): View => {
-    if (typeof window !== 'undefined' && window.location.pathname === '/admin') {
-      return 'admin';
-    }
-    return 'home';
-  };
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const [currentView, setCurrentView] = useState<View>(getInitialView());
-  const [isTransitioning, setIsTransitioning] = useState(false);
-
-  // Handle /admin URL path
+  // Scroll to top on route change
   useEffect(() => {
-    if (window.location.pathname === '/admin') {
-      setCurrentView('admin');
-    }
-  }, []);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location.pathname]);
 
-  const navigate = useCallback((view: View) => {
-    if (view === currentView) {
+  // Navigation helper that uses React Router
+  const handleNavigate = (view: View) => {
+    const path = routeConfig[view];
+    if (location.pathname === path) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
-    setIsTransitioning(true);
-    const timer = setTimeout(() => {
-      setCurrentView(view);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      setIsTransitioning(false);
-    }, 250);
-    return () => clearTimeout(timer);
-  }, [currentView]);
+    navigate(path);
+  };
+
+  const currentView = getViewFromPath(location.pathname);
 
   return (
     <div className="relative min-h-screen text-white overflow-x-hidden">
@@ -69,27 +70,30 @@ const App: React.FC = () => {
         <Starfield />
       </div>
 
-      <Navbar currentView={currentView} onNavigate={navigate} />
+      <Navbar currentView={currentView} onNavigate={handleNavigate} />
 
       {/* Main Content Area - Semantic for SEO */}
       <main
         id="main-content"
-        className={`relative z-10 pt-24 transition-all duration-300 ease-out 
-        ${isTransitioning ? 'opacity-0 scale-[0.98] blur-sm' : 'opacity-100 scale-100 blur-0'}`}
+        className="relative z-10 pt-24 transition-all duration-300 ease-out"
       >
         <Suspense fallback={<div className="h-screen flex items-center justify-center font-mono text-[#00FF41]">SYNCING NEURAL LINKS...</div>}>
-          {currentView === 'home' && <Home onNavigate={navigate} />}
-          {currentView === 'services' && <Services onNavigate={navigate} />}
-          {currentView === 'nurture' && <ServiceNurture onNavigate={navigate} />}
-          {currentView === 'scale' && <ServiceScale onNavigate={navigate} />}
-          {currentView === 'support' && <ServiceSupport onNavigate={navigate} />}
-          {currentView === 'other-services' && <ServiceOther onNavigate={navigate} />}
-          {currentView === 'use-cases' && <UseCases onNavigate={navigate} />}
-          {currentView === 'use-case-re' && <UseCaseRealEstate onNavigate={navigate} />}
-          {currentView === 'use-case-hc' && <UseCaseHealthcare onNavigate={navigate} />}
-          {currentView === 'about' && <About onNavigate={navigate} />}
-          {currentView === 'book-call' && <BookCall />}
-          {currentView === 'admin' && <Admin onNavigate={navigate} />}
+          <Routes>
+            <Route path="/" element={<Home onNavigate={handleNavigate} />} />
+            <Route path="/services" element={<Services onNavigate={handleNavigate} />} />
+            <Route path="/services/nurture" element={<ServiceNurture onNavigate={handleNavigate} />} />
+            <Route path="/services/scale" element={<ServiceScale onNavigate={handleNavigate} />} />
+            <Route path="/services/support" element={<ServiceSupport onNavigate={handleNavigate} />} />
+            <Route path="/services/other" element={<ServiceOther onNavigate={handleNavigate} />} />
+            <Route path="/use-cases" element={<UseCases onNavigate={handleNavigate} />} />
+            <Route path="/use-cases/real-estate" element={<UseCaseRealEstate onNavigate={handleNavigate} />} />
+            <Route path="/use-cases/healthcare" element={<UseCaseHealthcare onNavigate={handleNavigate} />} />
+            <Route path="/about" element={<About onNavigate={handleNavigate} />} />
+            <Route path="/contact" element={<BookCall />} />
+            <Route path="/admin" element={<Admin onNavigate={handleNavigate} />} />
+            {/* Fallback to home for unknown routes */}
+            <Route path="*" element={<Home onNavigate={handleNavigate} />} />
+          </Routes>
         </Suspense>
       </main>
 
@@ -106,18 +110,18 @@ const App: React.FC = () => {
                 AI Automation for Real Estate, Healthcare, and Service-Driven Businesses.
               </p>
             </div>
-            
+
             {/* Quick Links */}
             <div className="space-y-4">
               <h4 className="text-lg font-bold text-[#00FF41]">Quick Links</h4>
               <div className="flex flex-col gap-3">
-                <button onClick={() => navigate('home')} className="text-white/50 hover:text-[#00FF41] transition-colors text-left">Home</button>
-                <button onClick={() => navigate('services')} className="text-white/50 hover:text-[#00FF41] transition-colors text-left">Services</button>
-                <button onClick={() => navigate('about')} className="text-white/50 hover:text-[#00FF41] transition-colors text-left">About</button>
-                <button onClick={() => navigate('book-call')} className="text-white/50 hover:text-[#00FF41] transition-colors text-left">Contact Us</button>
+                <button onClick={() => handleNavigate('home')} className="text-white/50 hover:text-[#00FF41] transition-colors text-left">Home</button>
+                <button onClick={() => handleNavigate('services')} className="text-white/50 hover:text-[#00FF41] transition-colors text-left">Services</button>
+                <button onClick={() => handleNavigate('about')} className="text-white/50 hover:text-[#00FF41] transition-colors text-left">About</button>
+                <button onClick={() => handleNavigate('book-call')} className="text-white/50 hover:text-[#00FF41] transition-colors text-left">Contact Us</button>
               </div>
             </div>
-            
+
             {/* Contact Details */}
             <div className="space-y-4">
               <h4 className="text-lg font-bold text-[#00FF41]">Contact Us</h4>
@@ -138,7 +142,7 @@ const App: React.FC = () => {
               </div>
             </div>
           </div>
-          
+
           {/* Bottom Bar */}
           <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-white/30 text-sm">© 2025 Bokle AI LLP. All rights reserved.</p>
