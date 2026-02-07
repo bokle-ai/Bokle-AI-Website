@@ -25,15 +25,15 @@ const Admin: React.FC<AdminProps> = ({ onNavigate }) => {
     try {
       setLoading(true);
       setError(null);
-      
+
       const response = await fetch(API_ENDPOINTS.getEnquiries);
-      
+
       if (!response.ok) {
         const errorText = await response.text();
         console.error('Fetch error:', response.status, errorText);
         throw new Error(`Server error: ${response.status}`);
       }
-      
+
       const data = await response.json();
       setEnquiries(data.enquiries || []);
     } catch (err) {
@@ -50,16 +50,16 @@ const Admin: React.FC<AdminProps> = ({ onNavigate }) => {
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this enquiry?')) return;
-    
+
     try {
-      const response = await fetch(API_ENDPOINTS.deleteEnquiry(id), { 
-        method: 'DELETE' 
+      const response = await fetch(API_ENDPOINTS.deleteEnquiry(id), {
+        method: 'DELETE'
       });
-      
+
       if (!response.ok) {
         throw new Error(`Delete failed: ${response.status}`);
       }
-      
+
       setEnquiries(enquiries.filter(e => e.id !== id));
     } catch (err) {
       console.error('Failed to delete:', err);
@@ -88,12 +88,39 @@ const Admin: React.FC<AdminProps> = ({ onNavigate }) => {
           </h1>
           <p className="text-white/40 mt-2">View and manage all form submissions</p>
         </div>
-        <button
-          onClick={fetchEnquiries}
-          className="px-6 py-3 bg-[#00FF41]/10 border border-[#00FF41]/30 rounded-xl text-[#00FF41] font-bold hover:bg-[#00FF41]/20 transition-all"
-        >
-          Refresh
-        </button>
+        <div className="flex gap-4">
+          <button
+            onClick={() => {
+              const headers = ['ID', 'Name', 'Email', 'Domain', 'Description', 'Date'];
+              const csvContent = [
+                headers.join(','),
+                ...enquiries.map(e => [
+                  `"${e.id}"`,
+                  `"${e.name.replace(/"/g, '""')}"`,
+                  `"${e.email.replace(/"/g, '""')}"`,
+                  `"${e.domain?.replace(/"/g, '""') || ''}"`,
+                  `"${e.description?.replace(/"/g, '""') || ''}"`,
+                  `"${new Date(e.created_at).toLocaleString()}"`
+                ].join(','))
+              ].join('\n');
+
+              const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+              const link = document.createElement('a');
+              link.href = URL.createObjectURL(blob);
+              link.download = `bokle_enquiries_${new Date().toISOString().split('T')[0]}.csv`;
+              link.click();
+            }}
+            className="px-6 py-3 bg-white/10 border border-white/20 rounded-xl text-white font-bold hover:bg-white/20 transition-all"
+          >
+            Download CSV
+          </button>
+          <button
+            onClick={fetchEnquiries}
+            className="px-6 py-3 bg-[#00FF41]/10 border border-[#00FF41]/30 rounded-xl text-[#00FF41] font-bold hover:bg-[#00FF41]/20 transition-all"
+          >
+            Refresh
+          </button>
+        </div>
       </div>
 
       {loading ? (
@@ -148,8 +175,8 @@ const Admin: React.FC<AdminProps> = ({ onNavigate }) => {
                 </thead>
                 <tbody>
                   {enquiries.map((enquiry, index) => (
-                    <tr 
-                      key={enquiry.id} 
+                    <tr
+                      key={enquiry.id}
                       className={`border-b border-white/5 hover:bg-white/5 transition-colors ${index % 2 === 0 ? 'bg-white/[0.02]' : ''}`}
                     >
                       <td className="p-5 font-semibold">{enquiry.name}</td>
