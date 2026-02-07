@@ -112,7 +112,7 @@ const Admin: React.FC<AdminProps> = ({ onNavigate }) => {
             }}
             className="px-6 py-3 bg-white/10 border border-white/20 rounded-xl text-white font-bold hover:bg-white/20 transition-all"
           >
-            Dowload Responses (.csv)
+            Download Responses (.csv)
           </button>
           <button
             onClick={fetchEnquiries}
