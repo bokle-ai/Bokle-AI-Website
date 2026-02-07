@@ -80,7 +80,7 @@ def health_check():
 
 @app.post("/api/submit-inquiry")
 def submit_inquiry(inquiry: InquiryRequest):
-    if not enquiries_collection:
+    if enquiries_collection is None:
         raise HTTPException(status_code=503, detail="Database not configured")
     
     if not inquiry.name or not inquiry.email:
@@ -102,7 +102,7 @@ def submit_inquiry(inquiry: InquiryRequest):
 
 @app.get("/api/enquiries")
 def get_enquiries():
-    if not enquiries_collection:
+    if enquiries_collection is None:
         raise HTTPException(status_code=503, detail="Database not configured")
     
     try:
@@ -123,7 +123,7 @@ def get_enquiries():
 
 @app.delete("/api/enquiries/{enquiry_id}")
 def delete_enquiry(enquiry_id: str):
-    if not enquiries_collection:
+    if enquiries_collection is None:
         raise HTTPException(status_code=503, detail="Database not configured")
     
     from bson import ObjectId
